@@ -501,15 +501,15 @@ namespace hook
 {
 	using namespace std;
 
-    int init( )
-    {
+	int init( )
+	{
 		cout << "init hook" << endl;
 
-        if ( kiero::init( kiero::RenderType::D3D11 ) == kiero::Status::Success )
-        {
+		if ( kiero::init( kiero::RenderType::D3D11 ) == kiero::Status::Success )
+		{
 			cout << " hook" << endl;
 
-            kiero::bind( 8, (void**)&d3d::present, present );
+			kiero::bind( 8, (void**)&d3d::present, present );
 			kiero::bind( 73, (void**)&d3d::draw_indexed, draw_indexed );
 			kiero::bind( 81, (void**)&d3d::draw_indexed_instanced, draw_indexed_instanced );
 			kiero::bind( 100, (void**)&d3d::draw_indexed_instanced_indirect, draw_indexed_instanced_indirect );
@@ -517,25 +517,25 @@ namespace hook
 			kiero::bind( 42, (void**)&d3d::create_query, create_query );
 
 			cout << " bind" << endl;
-        }
+		}
 
-        return 0;
-    }
+		return 0;
+	}
 }
 
 
 BOOL WINAPI DllMain( HINSTANCE hInstance, DWORD fdwReason, LPVOID )
 {
-    DisableThreadLibraryCalls( hInstance );
+	DisableThreadLibraryCalls( hInstance );
 
-    switch ( fdwReason )
-    {
-    case DLL_PROCESS_ATTACH:
+	switch ( fdwReason )
+	{
+	case DLL_PROCESS_ATTACH:
 		AllocConsole( );
 		freopen_s( reinterpret_cast<FILE**>( stdout ), "CONOUT$", "w", stdout );
-        CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)hook::init, NULL, 0, NULL );
-        break;
-    }
+		CreateThread( NULL, 0, (LPTHREAD_START_ROUTINE)hook::init, NULL, 0, NULL );
+		break;
+	}
 
-    return TRUE;
+	return TRUE;
 }
