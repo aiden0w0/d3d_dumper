@@ -163,7 +163,7 @@ HRESULT __stdcall present( IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT F
 		if ( !game_window || !IsWindow( game_window ) ) 
 			return d3d::present( pSwapChain, SyncInterval, Flags );
 
-		if ( SUCCEEDED( pSwapChain->GetDevice( __uuidof( d3d::device ), (void**)&d3d::device ) ) )
+		if ( SUCCEEDED( pSwapChain->GetDevice( __uuidof( d3d::device ), reinterpret_cast<void**>( &d3d::device ) ) ) )
 			d3d::device->GetImmediateContext( &d3d::context );
 
 		ID3D11Texture2D* buffer = nullptr;
